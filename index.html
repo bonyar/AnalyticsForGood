@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Analytics For Good</title>
+    <title>Analytics For Good: Water Quality and Conservation</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -18,20 +18,8 @@
             padding: 20px 0;
             text-align: center;
         }
-        .navbar {
-            margin-bottom: 30px;
-        }
-        .project {
-            margin-bottom: 20px;
-        }
-        .skills {
-            background-color: #f1f1f1;
-            padding: 30px 0;
-        }
-        .contact {
-            background-color: #007bff;
-            color: white;
-            padding: 30px 0;
+        .section {
+            margin: 30px 0;
         }
         .footer {
             background-color: #333;
@@ -42,90 +30,97 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Analytics For Good</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#projects">Projects</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#skills">Skills</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
     <header>
         <h1>Analytics For Good</h1>
-        <p>Empowering data-driven solutions for a better world</p>
+        <p>Water Quality and Conservation in San Diego</p>
     </header>
 
-    <div class="container mt-5" id="about">
-        <section>
-            <h2>About the Repository</h2>
-            <p>Welcome to <strong>Analytics For Good</strong>! This project is focused on leveraging data analytics for meaningful social impact. Explore our projects and contribute to the mission of making the world a better place through technology.</p>
+    <div class="container">
+        <section id="overview" class="section">
+            <h2>Overview</h2>
+            <p>This project explores water usage and quality trends in San Diego to develop actionable, data-driven solutions for sustainable water management. Our team leverages advanced analytics and visualization techniques to uncover insights and propose meaningful recommendations.</p>
         </section>
-    </div>
 
-    <div class="container mt-5" id="projects">
-        <section>
-            <h2>Projects</h2>
-            <div class="row">
-                <div class="col-md-4 project">
-                    <div class="card">
-                        <img src="https://via.placeholder.com/300" class="card-img-top" alt="Project Screenshot">
-                        <div class="card-body">
-                            <h5 class="card-title">Project 1</h5>
-                            <p class="card-text">A brief description of the project. Highlight its features and purpose.</p>
-                            <a href="https://github.com/bonyar/AnalyticsForGood" class="btn btn-primary" target="_blank">View on GitHub</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 project">
-                    <div class="card">
-                        <img src="https://via.placeholder.com/300" class="card-img-top" alt="Project Screenshot">
-                        <div class="card-body">
-                            <h5 class="card-title">Project 2</h5>
-                            <p class="card-text">A brief description of another project. Highlight its features and purpose.</p>
-                            <a href="https://github.com/bonyar/AnalyticsForGood" class="btn btn-primary" target="_blank">View on GitHub</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <div class="skills" id="skills">
-        <div class="container">
-            <h2>Skills</h2>
-            <p>Here are some skills and technologies used in this project:</p>
+        <section id="objectives" class="section">
+            <h2>Objectives</h2>
             <ul>
-                <li>Data Analytics</li>
-                <li>Machine Learning</li>
-                <li>Visualization Tools</li>
-                <li>Python, R, SQL</li>
+                <li>Analyze water consumption patterns in San Diego.</li>
+                <li>Evaluate the correlation between water quality and usage.</li>
+                <li>Propose sustainable water management solutions based on data-driven insights.</li>
             </ul>
-        </div>
-    </div>
+        </section>
 
-    <div class="contact" id="contact">
-        <div class="container">
+        <section id="key-features" class="section">
+            <h2>Key Features</h2>
+            <ul>
+                <li><strong>Data Cleaning and Integration:</strong> Combining and cleaning multiple datasets to ensure comprehensive and cohesive analysis.</li>
+                <li><strong>Visual Dashboards:</strong> Interactive visualizations of water quality trends, consumption patterns, and drought severity created using R Studio and Power BI.</li>
+                <li><strong>Predictive Modeling:</strong> Forecasting future water demand and understanding correlations with water quality.</li>
+            </ul>
+        </section>
+
+        <section id="datasets" class="section">
+            <h2>Datasets Used</h2>
+            <ol>
+                <li><strong>Urban Water Supply Monitoring Reports</strong>  
+                    <p>Source: <a href="https://data.ca.gov">California Open Data</a></p>
+                    <p>Description: Monthly reports from urban water suppliers on water production and conservation activities.</p>
+                </li>
+                <li><strong>Public Water System Information</strong>  
+                    <p>Source: <a href="https://sdwis.waterboards.ca.gov/PDWW/">California Open Data</a></p>
+                    <p>Description: Information on public water systems in California, including location and general details.</p>
+                </li>
+                <li><strong>Water Quality Data</strong>  
+                    <p>Source: <a href="https://data.ca.gov">California Department of Water Resources</a></p>
+                    <p>Description: Chemical and physical water quality parameters collected in regulatory compliance monitoring and special studies.</p>
+                </li>
+            </ol>
+        </section>
+
+        <section id="progress" class="section">
+            <h2>Progress</h2>
+            <h4>Completed Tasks:</h4>
+            <ul>
+                <li>Topic selection and dataset acquisition.</li>
+                <li>Data cleaning, preparation, and exploratory analysis using R.</li>
+                <li>Development of preliminary visualizations and statistical models.</li>
+            </ul>
+            <h4>In Progress:</h4>
+            <ul>
+                <li>Interactive dashboards showcasing water quality and consumption trends.</li>
+                <li>Integration of predictive models for future water demand forecasting.</li>
+            </ul>
+            <h4>Upcoming:</h4>
+            <ul>
+                <li>Finalize dashboards and compile findings into a one-page written report.</li>
+                <li>Prepare for the final presentation.</li>
+            </ul>
+        </section>
+
+        <section id="challenges" class="section">
+            <h2>Challenges</h2>
+            <ul>
+                <li>Addressing gaps in older datasets through interpolation techniques.</li>
+                <li>Harmonizing inconsistent data formats across multiple sources.</li>
+                <li>Incorporating GIS data for enhanced drought visualization.</li>
+            </ul>
+        </section>
+
+        <section id="team" class="section">
+            <h2>Team Members</h2>
+            <ul>
+                <li>Bonni Yarnell</li>
+                <li>Cristina Conone</li>
+                <li>Gabriela Ramos Alvarez</li>
+                <li>Josef Levine</li>
+                <li>Yulia Klyueva</li>
+            </ul>
+        </section>
+
+        <section id="contact" class="section">
             <h2>Contact</h2>
-            <p>Have questions or want to collaborate? Reach out:</p>
-            <p>Email: <a href="mailto:example@example.com" style="color: white;">example@example.com</a></p>
-        </div>
+            <p>For questions or collaborations, please email: <a href="mailto:example@example.com">example@example.com</a></p>
+        </section>
     </div>
 
     <footer class="footer">
@@ -135,3 +130,4 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
