@@ -21,7 +21,7 @@ Our analysis examines residential water consumption and production across Califo
 - **Other Regions**: North Coast, Colorado River, and Central Coast show much lower levels of both consumption and production.
 
 #### Visual: Water Consumed vs. Produced
-![Water Consumed vs. Produced](images/Water%20Consumed%20vs.%20Produced.png)
+![Water Consumed vs. Produced](images/WaterConsumedvsProduced.png)
 
 ### **Consumption-to-Production Ratios**
 - **San Joaquin River**: Over 80:1, indicating a heavy reliance on external water resources.
@@ -32,10 +32,10 @@ Our analysis examines residential water consumption and production across Califo
 ## Visual Insights
 
 ### **Number of Water Facilities by County**
-![Number of Water Facilities by County](images/Number%20Water%20Facilities%20by%20County.png)
+![Number of Water Facilities by County](images/NumberWaterFacilitiesbyCounty.png)
 
 ### **Sonoma County Water Distributions**
-![Sonoma County Water Distributions](images/Sonoma%20County%20Water%20Distributions.png)
+![Sonoma County Water Distributions](images/SonomaCountyWaterDistributions.png)
 
 ---
 
