@@ -20,14 +20,22 @@ Our analysis examines residential water consumption and production across Califo
 - **San Joaquin River**: The region has the highest water consumption, significantly outstripping production capacity.
 - **Other Regions**: North Coast, Colorado River, and Central Coast show much lower levels of both consumption and production.
 
+#### Visual: Water Consumed vs. Produced
+![Water Consumed vs. Produced](images/Water%20Consumed%20vs.%20Produced.png)
+
 ### **Consumption-to-Production Ratios**
 - **San Joaquin River**: Over 80:1, indicating a heavy reliance on external water resources.
 - **Sacramento River**: Balanced ratio, demonstrating better alignment between consumption and local production.
 
-### **Visual Insights**
-- Grouped bar charts illustrate disparities between water consumption and production.
-- Logarithmic scales enable effective visualization of small and large regions simultaneously.
-- Geographic mapping of water stations (e.g., Sonoma County) shows variability in usage intensity and sampling distribution.
+---
+
+## Visual Insights
+
+### **Number of Water Facilities by County**
+![Number of Water Facilities by County](images/Number%20Water%20Facilities%20by%20County.png)
+
+### **Sonoma County Water Distributions**
+![Sonoma County Water Distributions](images/Sonoma%20County%20Water%20Distributions.png)
 
 ---
 
