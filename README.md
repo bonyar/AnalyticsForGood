@@ -35,7 +35,7 @@ Our analysis examines residential water consumption and production across Califo
 ![Number of Water Facilities by County](images/NumberWaterFacilitiesbyCounty.png)
 
 ### **Sonoma County Water Distributions**
-![Sonoma County Water Distributions](images/SonomaCountyWaterDistributions.png)
+![Sonoma County Water Distributions](images/SonomaCountyWaterDistibutions.png)
 
 ---
 
