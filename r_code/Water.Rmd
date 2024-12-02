@@ -1,0 +1,185 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+# Load necessary libraries
+library(tidyverse)
+library(readxl)
+library(ggplot2)
+library(sf)  # For spatial data handling
+library(here)
+library(viridis)  # For color scale
+
+# Load datasets
+water_quality_data <- read_excel(here("data", "drinkingwater_5years.xlsx"))
+station_data <- read_excel(here("data", "stations_5years.xlsx"))
+supplier_data <- read_excel(here("data", "uw_supplier_data_5years.xlsx"))
+conservation_data <- read_csv(
+  here("data", "Conservation", "Per-Supplier_Water_Supply_and Demand_5years.csv"),
+  na = c("", "NA"),  # Handle missing values
+  show_col_types = FALSE
+)
+
+```
+
+```{r}
+# ---- Geographic Distribution: Sonoma County ----
+
+# Check if the dataset contains latitude and longitude columns
+if ("latitude" %in% colnames(station_data) && "longitude" %in% colnames(station_data)) {
+  # Clean and filter station data for valid coordinates
+  station_clean <- station_data %>%
+    filter(
+      !is.na(latitude) & !is.na(longitude),  # Remove missing coordinates
+      latitude >= 38.0 & latitude <= 39.0,  # Latitude bounds for Sonoma County
+      longitude >= -123.5 & longitude <= -122.0  # Longitude bounds for Sonoma County
+    ) %>%
+    mutate(
+      SampleCategory = case_when(
+        sample_count > 100 ~ "High",
+        sample_count > 50 ~ "Medium",
+        TRUE ~ "Low"
+      ),
+      LogSampleCount = log10(sample_count + 1)  # Log-transform for scaling
+    )
+  
+  # Debugging: Print a preview of the cleaned data
+  cat("Preview of cleaned station data for Sonoma County:\n")
+  print(head(station_clean))
+  
+  # Generate the map
+  ggplot() +
+    geom_sf(
+      data = sf::st_as_sf(maps::map("county", plot = FALSE, fill = TRUE)) %>%
+        filter(grepl("sonoma", ID, ignore.case = TRUE)),  # Focus on Sonoma County
+      fill = "gray90", color = "black"
+    ) +
+    geom_point(
+      data = station_clean,
+      aes(
+        x = longitude, y = latitude,
+        size = LogSampleCount, color = LogSampleCount
+      ),
+      alpha = 0.8
+    ) +
+    scale_size(range = c(2, 8), name = "Log Sample Count") +  # Adjust bubble size
+    scale_color_viridis(option = "plasma", name = "Log Sample Count") +  # Viridis color scale
+    labs(
+      title = "Geographic Distribution of Water Stations in Sonoma County",
+      subtitle = "Bubble size and color represent log-transformed sample counts",
+      x = "Longitude",
+      y = "Latitude"
+    ) +
+    theme_minimal() +
+    theme(
+      plot.title = element_text(face = "bold", size = 16),
+      axis.text = element_text(size = 10),
+      legend.position = "right"
+    )
+} else {
+  cat("Latitude or Longitude columns are missing in the station data. Cannot create a map.\n")
+}
+
+```
+
+```{r}
+# Plot: Number of facilities by county (if applicable)
+if("Principal County Served" %in% colnames(water_quality_clean)) {
+  ggplot(water_quality_clean, aes(x = `Principal County Served`)) +
+    geom_bar() +
+    labs(title = "Number of Facilities by County", x = "County", y = "Number of Facilities") +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+} else {
+  print("Column 'Principal County Served' not found in water_quality_clean.")
+}
+
+# Plot: Supplier data trend over time (example)
+# Check for the existence of relevant columns and handle missing values if necessary
+if("SupplyVolume" %in% colnames(supplier_clean) && "Year" %in% colnames(supplier_clean)) {
+  supplier_clean <- supplier_clean %>% filter(!is.na(SupplyVolume), !is.na(Year))
+  
+  ggplot(supplier_clean, aes(x = Year, y = SupplyVolume, color = factor(SupplierID))) +  # Convert SupplierID to factor for better color separation
+    geom_line() +
+    labs(title = "Supply Volume Trend by Supplier", x = "Year", y = "Supply Volume (in units)") +
+    theme_minimal()
+} else {
+  print("Columns 'SupplyVolume' and/or 'Year' not found in supplier_clean.")
+}
+
+# Plot: Distribution of Facility Types (example if applicable)
+if("FacilityType" %in% colnames(water_quality_clean)) {
+  ggplot(water_quality_clean, aes(x = FacilityType)) +
+    geom_bar() +
+    labs(title = "Distribution of Facility Types", x = "Facility Type", y = "Count") +
+    theme_minimal()
+} else {
+  print("Column 'FacilityType' not found in water_quality_clean.")
+}
+
+```
+```{r}
+# Inspect the dataset
+cat("Preview of conservation data:\n")
+print(head(conservation_data))
+
+# Check column names
+cat("Column names in conservation data:\n")
+print(colnames(conservation_data))
+
+# Step 1: Clean and aggregate data
+# Replace 'hydrologic_region' with 'HYDRO_REGION'
+conservation_summary <- conservation_data %>%
+  filter(!is.na(HYDRO_REGION)) %>%  # Remove rows with missing hydrologic region
+  group_by(HYDRO_REGION) %>%
+  summarize(
+    TotalResidentialWaterConsumed = sum(POTABLE_DEMAND_RES_GAL, na.rm = TRUE),
+    TotalResidentialWaterProduced = sum(POTABLE_SUPPLY_GAL, na.rm = TRUE)
+  )
+
+# Debugging: Check the aggregated data
+cat("Aggregated data by hydrologic region:\n")
+print(conservation_summary)
+
+# Step 2: Create the visualization
+# Transform the data for a grouped bar chart
+conservation_long <- conservation_summary %>%
+  pivot_longer(
+    cols = c(TotalResidentialWaterConsumed, TotalResidentialWaterProduced),
+    names_to = "Metric",
+    values_to = "Volume"
+  )
+
+# Replace metric names for clarity
+conservation_long <- conservation_long %>%
+  mutate(Metric = recode(Metric,
+                         TotalResidentialWaterConsumed = "Water Consumed",
+                         TotalResidentialWaterProduced = "Water Produced"))
+
+# Create the grouped bar chart with a logarithmic y-axis
+ggplot(conservation_long, aes(x = HYDRO_REGION, y = Volume, fill = Metric)) +
+  geom_bar(stat = "identity", position = "dodge", alpha = 0.8) +
+  scale_y_log10(
+    labels = scales::comma,
+    breaks = scales::log_breaks(n = 10),
+    name = "Volume of Water (Log Scale, Gallons)"
+  ) +
+  labs(
+    title = "Residential Water Usage by Hydrologic Region",
+    subtitle = "Comparison of water consumed and produced (Logarithmic Scale)",
+    x = "Hydrologic Region",
+    fill = "Metric"
+  ) +
+  scale_fill_manual(values = c("skyblue", "orange")) +  # Distinct colors
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 16, face = "bold"),
+    plot.subtitle = element_text(size = 12),
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    legend.position = "top",
+    legend.title = element_blank()
+  )
+
+```
+
